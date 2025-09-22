@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+	<title>ПРЕСТИЖ — Такси</title>
+	
+	<!-- PWA Meta Tags -->
+	<meta name="description" content="Мобильное приложение такси ПРЕСТИЖ" />
+	<meta name="theme-color" content="#000000" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	<meta name="apple-mobile-web-app-title" content="ПРЕСТИЖ" />
+	
+	<!-- PWA Icons -->
+	<link rel="apple-touch-icon" href="icon-192x192.png" />
+	<link rel="icon" type="image/png" sizes="192x192" href="icon-192x192.png" />
+	<link rel="icon" type="image/png" sizes="512x512" href="icon-512x512.png" />
+	
+	<!-- PWA Manifest -->
+	<link rel="manifest" href="manifest.json" />
+	
+	<!-- Styles -->
+	<link rel="stylesheet" href="styles.css" />
+	
+	<!-- Telegram WebApp API (загружается только при необходимости) -->
+	<script>
+		// Загружаем Telegram WebApp API только если открыто в Telegram
+		if (window.location.href.includes('tgWebAppPlatform') || 
+		    window.location.href.includes('tgWebAppVersion') ||
+		    window.navigator.userAgent.includes('Telegram')) {
+			const script = document.createElement('script');
+			script.src = 'https://telegram.org/js/telegram-web-app.js';
+			document.head.appendChild(script);
+		}
+	</script>
+</head>
+<body>
+	<div id="app">
+		<!-- Header -->
+		<header class="header">
+			<button class="profile-btn">👤</button>
+			<h1>ПРЕСТИЖ</h1>
+		</header>
+
+		<!-- Map Placeholder -->
+		<div class="map-container">
+			<div class="map-placeholder">
+				<div class="map-icon">🗺️</div>
+				<h2>Карта будет в следующем обновлении!</h2>
+				<p>Пока что мы работаем без карты</p>
+			</div>
+		</div>
+
+		<!-- Order Panel -->
+		<div class="order-panel">
+			<!-- Route Points -->
+			<div class="route-section">
+				<div class="route-point from">
+					<div class="point-dot"></div>
+					<div class="point-line"></div>
+					<div class="point-content">
+						<input type="text" id="from-input" placeholder="Откуда" />
+						<button class="location-btn">📍</button>
+					</div>
+				</div>
+				<div class="route-point to">
+					<div class="point-square"></div>
+					<div class="point-content">
+						<input type="text" id="to-input" placeholder="Куда" />
+						<button class="add-stop-btn">+</button>
+					</div>
+				</div>
+			</div>
+
+			<!-- Tariff Selection -->
+			<div class="tariff-section">
+				<div class="tariff-options">
+					<div class="tariff-option active" data-tariff="econom">
+						<div class="tariff-icon">🚗</div>
+						<div class="tariff-name">ЭКОНОМ</div>
+						<div class="tariff-price">150₽</div>
+					</div>
+					<div class="tariff-option" data-tariff="student">
+						<div class="tariff-icon">🎓</div>
+						<div class="tariff-name">СТУДЕНТ</div>
+						<div class="tariff-price">100₽</div>
+					</div>
+					<div class="tariff-option" data-tariff="kids">
+						<div class="tariff-icon">👶</div>
+						<div class="tariff-name">С ДЕТЬМИ</div>
+						<div class="tariff-price">200₽</div>
+					</div>
+					<div class="tariff-option" data-tariff="business">
+						<div class="tariff-icon">💼</div>
+						<div class="tariff-name">БИЗНЕС</div>
+						<div class="tariff-price">+50%</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Payment Method -->
+			<div class="payment-section">
+				<div class="payment-info">
+					<span class="payment-label">Способ оплаты:</span>
+					<span class="payment-method" id="payment-method">Наличными</span>
+				</div>
+				<button class="payment-btn" id="payment-btn">Изменить</button>
+			</div>
+
+			<!-- Promo Code -->
+			<div class="promo-section">
+				<input type="text" id="promo-input" placeholder="Промокод" />
+				<button class="promo-btn" id="promo-btn">Применить</button>
+			</div>
+
+			<!-- Order Button -->
+			<button class="order-btn" id="order-btn">
+				ПОДТВЕРДИТЬ ЭКОНОМ
+			</button>
+		</div>
+
+		<!-- Payment Modal -->
+		<div class="modal" id="payment-modal">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h3>Способ оплаты</h3>
+					<button class="close-btn">×</button>
+				</div>
+				<div class="modal-body">
+					<div class="payment-option" data-payment="cash">
+						<div class="payment-icon">💵</div>
+						<span>Наличными</span>
+					</div>
+					<div class="payment-option" data-payment="card">
+						<div class="payment-icon">💳</div>
+						<span>Перевод</span>
+					</div>
+					<div class="payment-option" data-payment="free" id="free-option" style="display: none;">
+						<div class="payment-icon">🎁</div>
+						<span>Бесплатная поездка</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Success Overlay -->
+		<div class="success-overlay" id="success-overlay" style="display: none;">
+			<div class="success-content">
+				<div class="success-icon">✅</div>
+				<h2>Заказ принят!</h2>
+				<p>Ожидайте машину. Мы сообщим вам марку и гос номер после прибытия авто!</p>
+			</div>
+		</div>
+
+		<!-- Install PWA Banner -->
+		<div class="install-banner" id="install-banner" style="display: none;">
+			<div class="install-content">
+				<div class="install-icon">📱</div>
+				<div class="install-text">
+					<h3>Установить приложение</h3>
+					<p>Добавьте на главный экран для быстрого доступа</p>
+				</div>
+				<button class="install-btn" id="install-app-btn">Установить</button>
+				<button class="close-install-btn" id="close-install-btn">×</button>
+			</div>
+		</div>
+
+		<!-- Profile Page -->
+		<div class="profile-page" id="profile-page" style="display: none;">
+			<div class="profile-header">
+				<button class="back-to-main-btn">←</button>
+				<h2>Профиль</h2>
+			</div>
+			
+			<div class="profile-content">
+				<div class="profile-card">
+					<div class="profile-avatar">
+						<div class="avatar-icon">👤</div>
+					</div>
+					<div class="profile-info">
+						<h3 id="profile-name">Загрузка...</h3>
+						<p id="profile-phone">Загрузка...</p>
+						<div class="status-badge" id="profile-status">Клиент</div>
+					</div>
+				</div>
+
+				<div class="loyalty-card">
+					<div class="card-header">
+						<div class="card-icon">🎁</div>
+						<h3>Программа лояльности</h3>
+					</div>
+					<div class="loyalty-content">
+						<p class="loyalty-desc">Каждая 10-я поездка бесплатно!</p>
+						<div class="stats-grid">
+							<div class="stat-item">
+								<div class="stat-number" id="free-rides">0</div>
+								<div class="stat-label">Бесплатных поездок</div>
+							</div>
+							<div class="stat-item">
+								<div class="stat-number" id="rides-to-free">10</div>
+								<div class="stat-label">До следующей бесплатной</div>
+							</div>
+						</div>
+						<div class="progress-bar">
+							<div class="progress-fill" id="progress-fill"></div>
+						</div>
+					</div>
+				</div>
+
+				<div class="profile-actions">
+					<button class="action-btn" id="edit-profile">
+						<div class="btn-icon">✏️</div>
+						<span>Редактировать профиль</span>
+					</button>
+					<button class="action-btn" id="support-btn">
+						<div class="btn-icon">💬</div>
+						<span>Техподдержка</span>
+					</button>
+					<button class="action-btn" id="save-profile">
+						<div class="btn-icon">💾</div>
+						<span>Сохранить изменения</span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="app.js"></script>
+</body>
+</html>
