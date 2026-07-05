@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TAVREX - Премиум салон</title>
+    <link rel="stylesheet" href="style.css?v=2.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-content">
+            <div class="location-top">
+                <i class="fas fa-map-marker-alt"></i> г. Геническ
+            </div>
+            <div class="logo-center">TAVREX.ЗАПИСЬ</div>
+            <div class="header-actions">
+                <!-- Телефон убран -->
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <!-- Screen 1: Home -->
+        <section id="screen-home" class="screen active">
+            <div class="hero-section">
+                <div class="hero-info">
+                    <h1>КРАСОТА В ДЕТАЛЯХ</h1>
+                    <button class="btn-main" onclick="navigateTo('screen-services')">Записаться онлайн</button>
+                </div>
+            </div>
+
+            <div class="content-wrapper">
+                <div class="section-header">
+                    <h2>Наши услуги</h2>
+                    <button class="btn-link" onclick="navigateTo('screen-services')">Все услуги <i class="fas fa-arrow-right"></i></button>
+                </div>
+
+                <div class="services-grid">
+                    <div class="service-item" onclick="navigateTo('screen-services')">
+                        <div class="icon-box"><i class="fas fa-cut"></i></div>
+                        <span>Стрижки</span>
+                    </div>
+                    <div class="service-item" onclick="navigateTo('screen-services')">
+                        <div class="icon-box"><i class="fas fa-hand-sparkles"></i></div>
+                        <span>Маникюр</span>
+                    </div>
+                    <div class="service-item" onclick="navigateTo('screen-services')">
+                        <div class="icon-box"><i class="fas fa-magic"></i></div>
+                        <span>Окрашивание</span>
+                    </div>
+                    <div class="service-item" onclick="navigateTo('screen-services')">
+                        <div class="icon-box"><i class="fas fa-spa"></i></div>
+                        <span>Косметология</span>
+                    </div>
+                    <div class="service-item" onclick="navigateTo('screen-services')">
+                        <div class="icon-box"><i class="fas fa-user-tie"></i></div>
+                        <span>Барбершоп</span>
+                    </div>
+                    <div class="service-item" onclick="navigateTo('screen-services')">
+                        <div class="icon-box"><i class="fas fa-wind"></i></div>
+                        <span>Укладки</span>
+                    </div>
+                </div>
+
+                <div class="promo-banner-new">
+                    <div class="promo-icon-wrap"><i class="fas fa-gift"></i></div>
+                    <div class="promo-text">
+                        <h3>Акции и предложения</h3>
+                        <p>Скидка 20% на первое посещение любой услуги</p>
+                    </div>
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- Screen 2: Services (Booking Step 1) -->
+        <section id="screen-services" class="screen">
+            <div class="content-wrapper">
+                <div class="back-nav" onclick="navigateTo('screen-home')">
+                    <i class="fas fa-arrow-left"></i> Назад
+                </div>
+                <h2 class="step-title">Выберите услугу</h2>
+                <div class="services-list-full">
+                    <div class="list-item-card" onclick="selectService('Женская стрижка', 800)">
+                        <div class="item-details">
+                            <h4>Женская стрижка</h4>
+                            <p>60 мин • 800 ₽</p>
+                        </div>
+                        <button class="btn-select">Выбрать</button>
+                    </div>
+                    <div class="list-item-card" onclick="selectService('Мужская стрижка', 500)">
+                        <div class="item-details">
+                            <h4>Мужская стрижка</h4>
+                            <p>40 мин • 500 ₽</p>
+                        </div>
+                        <button class="btn-select">Выбрать</button>
+                    </div>
+                    <div class="list-item-card" onclick="selectService('Маникюр + Покрытие', 1200)">
+                        <div class="item-details">
+                            <h4>Маникюр + Покрытие</h4>
+                            <p>90 мин • 1200 ₽</p>
+                        </div>
+                        <button class="btn-select">Выбрать</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Screen 5: Masters (Booking Step 2) -->
+        <section id="screen-masters" class="screen">
+            <div class="content-wrapper">
+                <div class="back-nav" onclick="navigateTo('screen-services')">
+                    <i class="fas fa-arrow-left"></i> К услугам
+                </div>
+                <h2 class="step-title">Выберите мастера</h2>
+                <div class="masters-list">
+                    <div class="master-card-new" onclick="selectMaster('Анна Петрова', 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop')">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop" alt="master">
+                        <div class="master-info">
+                            <h4>Анна Петрова</h4>
+                            <p>Топ-стилист • Опыт 8 лет</p>
+                            <div class="rating-mini"><i class="fas fa-star"></i> 5.0</div>
+                        </div>
+                        <button class="btn-select">Выбрать</button>
+                    </div>
+                    <div class="master-card-new" onclick="selectMaster('Дмитрий Волков', 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop')">
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop" alt="master">
+                        <div class="master-info">
+                            <h4>Дмитрий Волков</h4>
+                            <p>Барбер • Опыт 5 лет</p>
+                            <div class="rating-mini"><i class="fas fa-star"></i> 4.9</div>
+                        </div>
+                        <button class="btn-select">Выбрать</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Screen 6: Date & Time (Booking Step 3) -->
+        <section id="screen-datetime" class="screen">
+            <div class="content-wrapper">
+                <div class="back-nav" onclick="navigateTo('screen-masters')">
+                    <i class="fas fa-arrow-left"></i> К мастерам
+                </div>
+                <h2 class="step-title">Дата и время</h2>
+                <div class="booking-summary-mini" id="mini-summary"></div>
+                
+                <div class="date-selector">
+                    <div class="date-chip active" onclick="selectDate('12 июля')">Пн, 12 июля</div>
+                    <div class="date-chip" onclick="selectDate('13 июля')">Вт, 13 июля</div>
+                    <div class="date-chip" onclick="selectDate('14 июля')">Ср, 14 июля</div>
+                </div>
+
+                <div class="time-grid">
+                    <div class="time-chip" onclick="selectTimeSlot(this, '10:00')">10:00</div>
+                    <div class="time-chip" onclick="selectTimeSlot(this, '12:00')">12:00</div>
+                    <div class="time-chip" onclick="selectTimeSlot(this, '14:00')">14:00</div>
+                    <div class="time-chip" onclick="selectTimeSlot(this, '16:00')">16:00</div>
+                    <div class="time-chip" onclick="selectTimeSlot(this, '18:00')">18:00</div>
+                </div>
+
+                <div id="datetime-action" style="display: none; margin-top: 30px;">
+                    <button class="btn-main" onclick="showConfirmScreen()">Продолжить</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Screen 7: Final Confirmation -->
+        <section id="screen-final-confirm" class="screen" style="display:none;">
+            <div class="content-wrapper">
+                <h2 class="step-title">Подтверждение</h2>
+                <div class="confirm-card">
+                    <div class="master-preview-confirm">
+                        <img id="conf-master-img" src="https://via.placeholder.com/60" alt="master">
+                        <div class="master-preview-info">
+                            <p id="conf-master-name">-</p>
+                            <span>Ваш мастер</span>
+                        </div>
+                    </div>
+                    <div class="confirm-row"><span>Услуга:</span> <b id="conf-service">-</b></div>
+                    <div class="confirm-row"><span>Дата:</span> <b id="conf-date">-</b></div>
+                    <div class="confirm-row"><span>Время:</span> <b id="conf-time">-</b></div>
+                    <div class="confirm-row"><span>К оплате:</span> <b id="conf-price">-</b></div>
+                </div>
+                <div class="confirm-actions" style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
+                    <button class="btn-main" style="width: 100%; max-width: 350px;" onclick="processBooking()">Подтвердить запись</button>
+                    <button class="btn-link-outline" style="width: 100%; max-width: 350px;" onclick="navigateTo('screen-datetime')">Назад</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Screen 8: Success Check -->
+        <section id="screen-success-check" class="screen">
+            <div class="success-premium-content">
+                <div class="check-wrapper">
+                    <div class="check-circle-bg"></div>
+                    <i class="fas fa-check"></i>
+                </div>
+                <h2 class="premium-title">Запись создана!</h2>
+                
+                <div class="success-card-premium">
+                    <div class="success-row">
+                        <i class="fas fa-user-tie"></i>
+                        <div><label>Мастер</label><p id="succ-master-info"></p></div>
+                    </div>
+                    <div class="success-row">
+                        <i class="fas fa-cut"></i>
+                        <div><label>Услуга</label><p id="succ-service-info"></p></div>
+                    </div>
+                    <div class="success-row">
+                        <i class="fas fa-calendar-check"></i>
+                        <div><label>Дата и время</label><p id="succ-date-info"></p></div>
+                    </div>
+                </div>
+
+                <div class="success-actions-vertical">
+                    <button class="btn-main" onclick="setReminders()">Поставить уведомление</button>
+                    <button class="btn-link-premium" onclick="navigateTo('screen-home')">На главную</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Screen 3: My Bookings -->
+        <section id="screen-my-bookings" class="screen">
+            <div class="content-wrapper">
+                <div class="section-header">
+                    <h2>Мои записи</h2>
+                </div>
+                <div id="bookings-list-container">
+                    <div class="empty-state">
+                        <i class="fas fa-calendar-day"></i>
+                        <p>У вас пока нет активных записей</p>
+                        <button class="btn-main" onclick="navigateTo('screen-services')">Записаться</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Screen 4: Profile -->
+        <section id="screen-profile" class="screen">
+            <div class="profile-header-new">
+                <div class="profile-avatar">
+                    <img id="user-photo-img" src="https://via.placeholder.com/100" alt="avatar">
+                </div>
+                <h2 id="user-name-display">Загрузка...</h2>
+                <p>Клиент TAVREX</p>
+            </div>
+            <div class="content-wrapper">
+                <div class="profile-menu-list">
+                    <div class="menu-row"><i class="fas fa-history"></i> История посещений <i class="fas fa-chevron-right"></i></div>
+                    <div class="menu-row"><i class="fas fa-heart"></i> Любимые мастера <i class="fas fa-chevron-right"></i></div>
+                    <div class="menu-row"><i class="fas fa-cog"></i> Настройки профиля <i class="fas fa-chevron-right"></i></div>
+                    <div class="menu-row logout"><i class="fas fa-sign-out-alt"></i> Выйти</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <nav class="floating-nav">
+        <div class="nav-btn active" onclick="navigateTo('screen-home')">
+            <i class="fas fa-home"></i>
+            <span>Главная</span>
+        </div>
+        <div class="nav-btn" onclick="navigateTo('screen-services')">
+            <i class="fas fa-calendar-plus"></i>
+            <span>Запись</span>
+        </div>
+        <div class="nav-btn" onclick="navigateTo('screen-my-bookings')">
+            <i class="fas fa-list-ul"></i>
+            <span>Мои записи</span>
+        </div>
+        <div class="nav-btn" onclick="navigateTo('screen-profile')">
+            <i class="fas fa-user"></i>
+            <span>Профиль</span>
+        </div>
+    </nav>
+
+    <script src="script.js"></script>
+</body>
+</html>
